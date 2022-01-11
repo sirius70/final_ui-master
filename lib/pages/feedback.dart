@@ -7,7 +7,9 @@ import 'package:login_ui/pages/widgets/home.dart';
 class FeedBack extends StatefulWidget {
   final String stationId;
   final String slotTiming;
+
   const FeedBack({Key key, this.stationId, this.slotTiming}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _FeedBackState();
@@ -20,7 +22,6 @@ class _FeedBackState extends State<FeedBack> {
   bool agree = true;
   final feed = new TextEditingController();
   bool isSwitched = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -107,24 +108,21 @@ class _FeedBackState extends State<FeedBack> {
                                     isSwitched = value;
                                     print(isSwitched);
                                   });
-
                                 },
                                 activeTrackColor: Colors.lightGreenAccent,
                                 activeColor: Colors.green,
                               ),
                             ],
                           ),
-
                           SizedBox(height: 175),
                           Container(
                             decoration:
-                            ThemeHelper().buttonBoxDecoration(context),
-
+                                ThemeHelper().buttonBoxDecoration(context),
                             child: ElevatedButton(
                               style: ThemeHelper().buttonStyle(),
                               onPressed: () async {
                                 final user =
-                                await FirebaseAuth.instance.currentUser;
+                                    await FirebaseAuth.instance.currentUser;
                                 //adding into database
                                 Map<String, dynamic> data = {
                                   "uid": user.uid,
@@ -138,30 +136,38 @@ class _FeedBackState extends State<FeedBack> {
                                     .collection("feedback")
                                     .add(data);
 
-
-                                QuerySnapshot querySnap  = await FirebaseFirestore.instance
-                                    .collection('stations').where('stationId', isEqualTo: widget.stationId).get();
+                                QuerySnapshot querySnap =
+                                    await FirebaseFirestore.instance
+                                        .collection('stations')
+                                        .where('stationId',
+                                            isEqualTo: widget.stationId)
+                                        .get();
                                 print('stationID:::${widget.stationId}');
                                 QueryDocumentSnapshot doc = querySnap.docs[0];
                                 DocumentReference docRef = doc.reference;
                                 await FirebaseFirestore.instance
                                     .collection('stations')
                                     .doc(docRef.id)
-                                    .update({"availability": FieldValue.increment(1)});
+                                    .update({
+                                  "availability": FieldValue.increment(1)
+                                });
 
-                                QuerySnapshot querySnap1 = await FirebaseFirestore.instance
-                                    .collection('slotbooking')
-                                    .where('stationId', isEqualTo: widget.stationId)
-                                    .get();
-                                QueryDocumentSnapshot doc1 = querySnap1.docs[
-                                0];
+                                QuerySnapshot querySnap1 =
+                                    await FirebaseFirestore.instance
+                                        .collection('slotbooking')
+                                        .where('stationId',
+                                            isEqualTo: widget.stationId)
+                                        .get();
+                                QueryDocumentSnapshot doc1 = querySnap1.docs[0];
                                 DocumentReference docRef1 = doc1.reference;
                                 var newItems = [];
                                 newItems.add(widget.slotTiming);
-                                await FirebaseFirestore.instance.collection("slotbooking")
+                                await FirebaseFirestore.instance
+                                    .collection("slotbooking")
                                     .doc(docRef1.id)
-                                    .update({"slotTimings": FieldValue.arrayUnion(newItems)});
-
+                                    .update({
+                                  "slotTimings": FieldValue.arrayUnion(newItems)
+                                });
 
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Home()));
