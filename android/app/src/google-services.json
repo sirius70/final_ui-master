@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "835952968104",
+    "project_id": "evproject-bef20",
+    "storage_bucket": "evproject-bef20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835952968104:android:c225becff653530ef21d9d",
+        "android_client_info": {
+          "package_name": "com.example.login_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835952968104-hhbtsuivel8v8a8o355dphglc8h1egtu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5T9yDRRb36A0SaK1W3h-KBisMn8Y3XqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835952968104-hhbtsuivel8v8a8o355dphglc8h1egtu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
